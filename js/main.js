@@ -1,25 +1,23 @@
 'use strict';
 
-let headerBtn = document.querySelector('.header-btn');
-let overlay = document.querySelector('.overlay');
-let modal = document.querySelector(".modal");
-let modalCloseBtn = document.querySelector('.modal__close-btn');
-let okBtn = document.querySelector('.ok-btn');
-let cancelBtn = document.querySelector('.cancel-btn');
+const headerBtn = document.querySelector('.header-btn');
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const modalCloseBtn = document.querySelector('.modal__close-btn');
+const okBtn = document.querySelector('.ok-btn');
+const cancelBtn = document.querySelector('.cancel-btn');
+const body = document.querySelector('body');
 
 function showModal() {
-    overlay.classList.remove('overlay--hide');
-    overlay.classList.remove('overlay-animation--hide')
-    modal.setAttribute('tabindex', '1');
-    modalCloseBtn.setAttribute('tabindex', '2');
-    okBtn.setAttribute('tabindex', '3');
-    cancelBtn.setAttribute('tabindex', '4'); 
-    modal.focus(); 
+    overlay.classList.remove('overlay--hide', 'overlay-animation--hide');
+    headerBtn.setAttribute('tabindex', '-1');
+    modalCloseBtn.setAttribute('tabindex', '0');
+    modalCloseBtn.focus(); 
 }
 
 function hideModal() {
     overlay.classList.add('overlay-animation--hide');
-    overlay.addEventListener('animationend', function(){
+    overlay.addEventListener('animationend', () => {
         if (overlay.classList.contains('overlay-animation--hide')) {
             overlay.classList.add('overlay--hide');
         }
@@ -31,8 +29,8 @@ okBtn.addEventListener('click', hideModal);
 cancelBtn.addEventListener('click', hideModal);
 modalCloseBtn.addEventListener('click', hideModal);
 
-window.addEventListener('click', function(ev) {
-    if (ev.target == overlay) {
+body.addEventListener('click', event => {
+    if (event.target == overlay) {
         hideModal();
     }
 });
